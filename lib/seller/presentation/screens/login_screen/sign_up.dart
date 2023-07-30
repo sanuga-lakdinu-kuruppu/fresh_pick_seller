@@ -1,0 +1,243 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_pick_seller/seller/business_logic/auth_page/bloc/auth_page_bloc.dart';
+
+// ignore: must_be_immutable
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
+  late AuthPageBloc authPageBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    authPageBloc = BlocProvider.of<AuthPageBloc>(context);
+    return Scaffold(
+      body: Center(
+        child: Stack(children: [
+          Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+            image: AssetImage('assets/images/vegetable_back.jpg'),
+            fit: BoxFit.cover,
+          ))),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(left: 18.0),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                authPageBloc
+                                    .add(AuthPageAnyBackButtonClickedEvent());
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 30,
+                              ))
+                        ])),
+                Column(
+                  children: [
+                    const Padding(
+                        padding: EdgeInsets.only(left: 33.0),
+                        child: Row(children: [
+                          Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ])),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.526803,
+                        width: MediaQuery.of(context).size.width * 0.824766,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                            child: Container(
+                              color: Colors.white.withOpacity(0.5),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 40, bottom: 20),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          // width: MediaQuery.of(context).size.width *
+                                          //     0.70093,
+                                          height: 67,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15.0, top: 10),
+                                            child: TextField(
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText:
+                                                      'Ex: vishava@gmail.com',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.grey)),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Container(
+                                          height: 67,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15.0, top: 10),
+                                            child: TextField(
+                                              obscureText: true,
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText:
+                                                      'Password .........',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.grey)),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        const Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'By selecting Agree and register below,',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              'I agree to terms and conditions.',
+                                              style: TextStyle(
+                                                  color: Colors.greenAccent,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  15))),
+                                              minimumSize: Size(
+                                                  MediaQuery
+                                                              .of(context)
+                                                          .size
+                                                          .width *
+                                                      0.70093,
+                                                  67),
+                                              backgroundColor:
+                                                  Colors.greenAccent,
+                                              foregroundColor: Colors.white),
+                                          onPressed: () {
+                                            //Login event should be triggered here
+                                          },
+                                          child: const Center(
+                                            child: Text('Agree & Register',
+                                                style: TextStyle(
+                                                    fontSize: 24,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '- - - Or - - -',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(15))),
+                                            minimumSize: Size(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.70093,
+                                                67),
+                                            backgroundColor: Colors.white,
+                                          ),
+                                          onPressed: () {},
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 20.0),
+                                                child: Text(
+                                                  'Sign Up with Google',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 32,
+                                                width: 32,
+                                                decoration: const BoxDecoration(
+                                                    image: DecorationImage(
+                                                        image: AssetImage(
+                                                            'assets/images/google_logo.png'))),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+}
