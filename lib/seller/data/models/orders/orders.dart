@@ -1,58 +1,144 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class OrderDataModel {
-  final String orderId;
-  final String orderName;
-  final String customerName;
-  final String orderDate;
-  final String orderTime;
-  final int orderStatus;
-  final String orderDistrict;
-  final double requesteingQuantity;
-  final double totalWieght;
-  final int customerMobile;
-  final String customerEmailAddress;
-  final String deliveryAddress;
-  final String? customerMessage;
-  final double itemAmount;
-  final double? totalDistance;
-  final double? deliveryFee;
-  final double totalAmount;
-  final double farmerReceived;
+  final String? orderId;
+  final String? sellerId;
+  final String? postId;
+  final DateTime? orderDate;
+  final String? orderStatus;
+  final String? itemName;
+  final String? buyerId;
+  final String? buyerName;
+  final String? sellerName;
+  final String? buyerDistrict;
+  final String? sellerDistrict;
+  final int? buyerMobile;
+  final int? sellerMobile;
+  final String? buyerEmailAddress;
+  final String? sellerEmailAddress;
+  final String? buyerMessage;
+  final String? deliveryAddress;
+  final double? itemQuantity;
+  final double? totalAmount;
   final String? review;
   final double? rating;
-  final double? cancelledReason;
-  final String? cancelledDate;
-  final String? deliveryStatus;
-  final String? riderName;
-  final int? riderContact;
+  final double? itemPricePerUnit;
+  final String? cancelledReason;
+  final DateTime? cancelledDate;
+  final double? deliveryFee;
   final String? deliveryMethod;
-  final String? verhicleNumber;
+  final String? deliveryStatus;
+  final int? riderMobile;
+  final String? riderName;
+  final double? totalDistance;
+  final double? totalWeight;
+  final String? vehicleNumber;
 
   OrderDataModel(
-      {required this.orderId,
-      required this.orderName,
-      required this.customerName,
-      required this.orderDate,
-      required this.orderTime,
-      required this.orderStatus,
-      required this.orderDistrict,
-      required this.requesteingQuantity,
-      required this.totalWieght,
-      required this.customerMobile,
-      required this.customerEmailAddress,
-      required this.deliveryAddress,
-      this.customerMessage,
-      required this.itemAmount,
-      this.totalDistance,
-      this.deliveryFee,
-      required this.totalAmount,
-      required this.farmerReceived,
-      this.review,
+      {this.review,
       this.rating,
-      this.cancelledReason,
-      this.cancelledDate,
-      this.deliveryStatus,
-      this.riderName,
-      this.riderContact,
+      this.itemPricePerUnit,
+      this.deliveryFee,
       this.deliveryMethod,
-      this.verhicleNumber});
+      this.deliveryStatus,
+      this.riderMobile,
+      this.riderName,
+      this.totalDistance,
+      this.totalWeight,
+      this.vehicleNumber,
+      this.sellerName,
+      this.sellerDistrict,
+      this.sellerMobile,
+      this.sellerEmailAddress,
+      this.orderId,
+      this.sellerId,
+      this.postId,
+      this.orderDate,
+      this.orderStatus,
+      this.itemName,
+      this.buyerId,
+      this.buyerName,
+      this.buyerDistrict,
+      this.buyerMobile,
+      this.buyerEmailAddress,
+      this.buyerMessage,
+      this.deliveryAddress,
+      this.itemQuantity,
+      this.totalAmount,
+      this.cancelledReason,
+      this.cancelledDate});
+
+  factory OrderDataModel.fromJson(String id, Map<String, dynamic> json) {
+    return OrderDataModel(
+      orderId: id,
+      sellerId: json['sellerId'] as String?,
+      postId: json['postId'] as String?,
+      orderDate: (json['orderDate'] as Timestamp?)?.toDate(),
+      orderStatus: json['orderStatus'] as String?,
+      itemName: json['itemName'] as String?,
+      buyerId: json['buyerId'] as String?,
+      buyerName: json['buyerName'] as String?,
+      sellerName: json['sellerName'] as String?,
+      buyerDistrict: json['buyerDistrict'] as String?,
+      sellerDistrict: json['sellerDistrict'] as String?,
+      riderName: json['riderName'] as String?,
+      buyerMobile: json['buyerMobile'] as int?,
+      riderMobile: json['riderMobile'] as int?,
+      sellerMobile: json['sellerMobile'] as int?,
+      buyerEmailAddress: json['buyerEmailAddress'] as String?,
+      sellerEmailAddress: json['sellerEmailAddress'] as String?,
+      buyerMessage: json['buyerMessage'] as String?,
+      deliveryAddress: json['deliveryAddress'] as String?,
+      itemQuantity: (json['itemQuantity'] as int).toDouble(),
+      rating: (json['rating'] as int).toDouble(),
+      itemPricePerUnit: (json['itemPricePerUnit'] as int).toDouble(),
+      deliveryFee: (json['deliveryFee'] as int).toDouble(),
+      totalDistance: (json['totalDistance'] as int).toDouble(),
+      totalWeight: (json['totalWeight'] as int).toDouble(),
+      totalAmount: (json['totalAmount'] as int).toDouble(),
+      cancelledReason: json['cancelledReason'] as String?,
+      deliveryMethod: json['deliveryMethod'] as String?,
+      vehicleNumber: json['vehicleNumber'] as String?,
+      deliveryStatus: json['deliveryStatus'] as String?,
+      review: json['review'] as String?,
+      cancelledDate: (json['cancelledDate'] as Timestamp?)?.toDate(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'orderId': orderId,
+      'sellerId': sellerId,
+      'postId': postId,
+      'orderDate': orderDate != null ? Timestamp.fromDate(orderDate!) : null,
+      'orderStatus': orderStatus,
+      'itemName': itemName,
+      'buyerId': buyerId,
+      'buyerName': buyerName,
+      'sellerName': sellerName,
+      'buyerDistrict': buyerDistrict,
+      'sellerDistrict': sellerDistrict,
+      'buyerMobile': buyerMobile,
+      'sellerMobile': sellerMobile,
+      'buyerEmailAddress': buyerEmailAddress,
+      'sellerEmailAddress': sellerEmailAddress,
+      'buyerMessage': buyerMessage,
+      'deliveryAddress': deliveryAddress,
+      'itemQuantity': itemQuantity,
+      'totalAmount': totalAmount,
+      'cancelledReason': cancelledReason,
+      'cancelledDate': cancelledDate,
+      'deliveryFee': deliveryFee,
+      'deliveryMethod': deliveryMethod,
+      'deliveryStatus': deliveryStatus,
+      'riderMobile': riderMobile,
+      'riderName': riderName,
+      'totalDistance': totalDistance,
+      'totalWeight': totalWeight,
+      'vehicleNumber': vehicleNumber,
+      'itemPricePerUnit': itemPricePerUnit,
+      'review': review,
+      'rating': rating,
+    };
+  }
 }

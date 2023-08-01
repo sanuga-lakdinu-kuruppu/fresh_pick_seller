@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_pick_seller/seller/presentation/screens/new_post_screen/new_post.dart';
 import 'package:fresh_pick_seller/seller/presentation/screens/post_details_screen/post_details.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/loading_tile/screen_loading_tile.dart';
-import 'package:fresh_pick_seller/seller/presentation/widgets/post_tile/post_tile_widget.dart';
 import '../../../business_logic/market_page/bloc/marketplace_page_bloc.dart';
 import '../../widgets/post_tile/post_tile_widget_test.dart';
 

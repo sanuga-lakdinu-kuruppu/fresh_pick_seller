@@ -45,7 +45,7 @@ class PostTileWidget extends StatelessWidget {
             children: [
               //396 328  0.052986
               Hero(
-                tag: post.id,
+                tag: post.id!,
                 child: Container(
                   height: 160,
                   width: MediaQuery.of(context).size.height *
@@ -56,7 +56,7 @@ class PostTileWidget extends StatelessWidget {
                         bottomLeft: Radius.circular(15),
                         topLeft: Radius.circular(15)),
                     image: DecorationImage(
-                      image: NetworkImage(post.imageUrl),
+                      image: NetworkImage(post.imageUrl!),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -81,7 +81,7 @@ class PostTileWidget extends StatelessWidget {
                               const Text('Product Name'),
                               SizedBox(
                                 width: 100,
-                                child: Text(post.productName,
+                                child: Text(post.postName!,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16)),
@@ -191,9 +191,9 @@ class PostTileWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                '${post.minimumOrderPricePer} ${post.unit}',
-                                style: const TextStyle(
+                              const Text(
+                                '1kg',
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
