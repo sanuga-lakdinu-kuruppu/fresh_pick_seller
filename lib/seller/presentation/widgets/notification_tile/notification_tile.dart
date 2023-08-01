@@ -20,7 +20,7 @@ class NotificationTile extends StatelessWidget {
         },
         child: Container(
           alignment: Alignment.center,
-          height: 135,
+          height: 136,
           width: 390,
           margin: const EdgeInsets.only(bottom: 10.0),
           decoration: const BoxDecoration(
@@ -75,11 +75,12 @@ class NotificationTile extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 50,
-                      width: 300,
+                      width: 250,
                       child: Text(
                         notificationsDataModel.message.toString(),
                         style:
                             const TextStyle(fontSize: 14, color: Colors.grey),
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                     const Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_pick_seller/seller/data/models/post/post.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/review_tile/review_title.dart';
+import 'package:intl/intl.dart';
 
 class PostDetailsPage extends StatelessWidget {
   final PostDataModel post;
@@ -36,14 +37,14 @@ class PostDetailsPage extends StatelessWidget {
             child: Column(
               children: [
                 Hero(
-                  tag: post.id,
+                  tag: post.id!,
                   child: Container(
                     width: double.maxFinite,
                     height: 220,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                       image: DecorationImage(
-                          image: NetworkImage(post.imageUrl),
+                          image: NetworkImage(post.imageUrl!),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -58,7 +59,8 @@ class PostDetailsPage extends StatelessWidget {
                             color: Color.fromRGBO(151, 151, 151, 1),
                             fontSize: 18,
                             fontWeight: FontWeight.w700)),
-                    Text('Posted Date - ${post.postedDate}',
+                    Text(
+                        'Posted Date - ${DateFormat('yyyy-MM-dd').format(post.postedDate!)}',
                         style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class PostDetailsPage extends StatelessWidget {
                                         icon: const Icon(Icons.edit))
                                   ],
                                 ),
-                                Text(post.productName,
+                                Text(post.postName!,
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
@@ -169,7 +171,7 @@ class PostDetailsPage extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Text('Completed Order',
+                                    const Text('Completed',
                                         style: TextStyle(color: Colors.grey)),
                                     const SizedBox(
                                       width: 2,
@@ -232,9 +234,8 @@ class PostDetailsPage extends StatelessWidget {
                                         ))
                                   ],
                                 ),
-                                Text(
-                                    '${post.minimumOrderPricePer} ${post.unit}',
-                                    style: const TextStyle(
+                                const Text('1kg',
+                                    style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black))
@@ -259,11 +260,14 @@ class PostDetailsPage extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                Text(post.pickupLocation,
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black))
+                                SizedBox(
+                                  width: 150,
+                                  child: Text(post.pickupLocation!,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black)),
+                                )
                               ],
                             ),
                             ElevatedButton(
@@ -297,7 +301,7 @@ class PostDetailsPage extends StatelessWidget {
                                         icon: const Icon(Icons.edit))
                                   ],
                                 ),
-                                Text(post.productCategory,
+                                Text(post.postCategory!,
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
@@ -321,7 +325,7 @@ class PostDetailsPage extends StatelessWidget {
                                         ))
                                   ],
                                 ),
-                                Text(post.productSubCategory,
+                                Text(post.postSubCategory!,
                                     style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
@@ -353,12 +357,13 @@ class PostDetailsPage extends StatelessWidget {
                         ),
                         Container(
                           height: 144,
+                          width: double.maxFinite,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(15)),
                               border: Border.all(color: Colors.grey, width: 2)),
-                          child: Text(post.postDescription,
+                          child: Text(post.postDescription!,
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
@@ -395,17 +400,17 @@ class PostDetailsPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Column(children: [
-                    Row(
+                    const Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Overall Ratings',
+                            Text('Overall Ratings',
                                 style: TextStyle(color: Colors.grey)),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10),
                             Row(
                               children: [
-                                const Row(
+                                Row(
                                   children: [
                                     Icon(Icons.star, color: Colors.yellow),
                                     Icon(Icons.star, color: Colors.yellow),
@@ -414,9 +419,9 @@ class PostDetailsPage extends StatelessWidget {
                                     Icon(Icons.star, color: Colors.red),
                                   ],
                                 ),
-                                const SizedBox(width: 10),
-                                Text(post.productRating.toString(),
-                                    style: const TextStyle(
+                                SizedBox(width: 10),
+                                Text('4.0',
+                                    style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black)),

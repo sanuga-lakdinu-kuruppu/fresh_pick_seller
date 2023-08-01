@@ -33,10 +33,11 @@ class ReviewTile extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 260,
+                width: 240,
                 child: Text(
                   'Thank you so much. This is very helpful for me. The Best ever. Very long time I was trying tihs thing. This time, It worked for me. Thank you very much.',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.justify,
                 ),
               )
             ],

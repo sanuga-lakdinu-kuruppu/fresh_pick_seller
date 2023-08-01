@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:fresh_pick_seller/seller/data/models/post/post.dart';
+import 'package:fresh_pick_seller/seller/data/repository/market_place_post_repository/marketplace_post_repository.dart';
 import 'package:fresh_pick_seller/test_data/post_list.dart';
 import 'package:meta/meta.dart';
 
@@ -19,27 +20,9 @@ class MarketplacePageBloc
   FutureOr<void> initialFetchEvent(
       InitialFetchEvent event, Emitter<MarketplacePageState> emit) async {
     emit(MarketplaceLoadingState());
-    await Future.delayed(const Duration(seconds: 4));
-    emit(MarketplaceLoadingSucessState(
-        posts: PostListData.postList
-            .map((e) => PostDataModel(
-                  imageUrl: e['imageUrl'],
-                  id: e['id'],
-                  productName: e['productName'],
-                  productCategory: e['productCategory'],
-                  productSubCategory: e['productSubCategory'],
-                  minimumOrderQty: e['minimumOrderQty'],
-                  unit: e['unit'],
-                  minimumOrderPrice: e['minimumOrderPrice'],
-                  minimumOrderPricePer: e['minimumOrderPricePer'],
-                  productRating: e['productRating'],
-                  productStatus: e['productStatus'],
-                  countCompletedOrders: e['countCompletedOrders'],
-                  pickupLocation: e['pickupLocation'],
-                  postedDate: e['postedDate'],
-                  postDescription: e['postDescription'],
-                ))
-            .toList()));
+    PostRepository postRepository = PostRepository();
+    var list = await postRepository.getAllPostItems();
+    emit(MarketplaceLoadingSucessState(posts: list));
   }
 
   FutureOr<void> newPostButtonClickedEvent(

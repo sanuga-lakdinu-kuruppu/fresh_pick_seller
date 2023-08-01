@@ -6,9 +6,6 @@ import 'package:fresh_pick_seller/seller/presentation/widgets/analytic_tile/earn
 import 'package:fresh_pick_seller/seller/presentation/widgets/analytic_tile/ongoing_tile.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/analytic_tile/pending_tile.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/analytic_tile/requested_tile.dart';
-import 'package:fresh_pick_seller/seller/presentation/widgets/post_tile/post_tile_widget_horizontal.dart';
-import '../../../../test_data/post_list.dart';
-import '../../../data/models/post/post.dart';
 import '../login_screen/login_main.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -182,32 +179,12 @@ class HomeScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: 5,
                           itemBuilder: (context, index) {
-                            return PostTileWidgetHorizontal(
-                              post: PostListData.postList
-                                  .map((e) => PostDataModel(
-                                        imageUrl: e['imageUrl'],
-                                        id: e['id'],
-                                        productName: e['productName'],
-                                        productCategory: e['productCategory'],
-                                        productSubCategory:
-                                            e['productSubCategory'],
-                                        minimumOrderQty: e['minimumOrderQty'],
-                                        unit: e['unit'],
-                                        minimumOrderPrice:
-                                            e['minimumOrderPrice'],
-                                        minimumOrderPricePer:
-                                            e['minimumOrderPricePer'],
-                                        productRating: e['productRating'],
-                                        productStatus: e['productStatus'],
-                                        countCompletedOrders:
-                                            e['countCompletedOrders'],
-                                        pickupLocation: e['pickupLocation'],
-                                        postedDate: e['postedDate'],
-                                        postDescription: e['postDescription'],
-                                      ))
-                                  .toList()
-                                  .first,
-                            );
+                            // return PostTileWidgetHorizontal(
+                            //   post: PostListData.postList
+                            //       .map((e) => PostDataModel.fromJson(e))
+                            //       .toList()
+                            //       .first,
+                            // );
                           },
                         ),
                       ),
@@ -317,7 +294,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Container(
                             height: 180,
-                            width: 200,
+                            width: 180,
                             decoration: const BoxDecoration(
                                 image: DecorationImage(
                                     image: AssetImage(

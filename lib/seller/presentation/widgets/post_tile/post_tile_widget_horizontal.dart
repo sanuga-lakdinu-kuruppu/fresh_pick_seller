@@ -65,7 +65,7 @@ class PostTileWidgetHorizontal extends StatelessWidget {
                             const Text('Product Name'),
                             SizedBox(
                               width: 100,
-                              child: Text(post.productName,
+                              child: Text(post.postName!,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16)),
@@ -174,9 +174,9 @@ class PostTileWidgetHorizontal extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                              '${post.minimumOrderPricePer} ${post.unit}',
-                              style: const TextStyle(
+                            const Text(
+                              '1 kg',
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
