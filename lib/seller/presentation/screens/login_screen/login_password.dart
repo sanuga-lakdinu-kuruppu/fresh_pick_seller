@@ -9,6 +9,7 @@ import '../../../business_logic/auth_page/bloc/auth_page_bloc.dart';
 class LoginPasswordPage extends StatelessWidget {
   LoginPasswordPage({super.key});
 
+  TextEditingController passwordController = TextEditingController();
   late AuthPageBloc authPageBloc;
 
   @override
@@ -82,12 +83,13 @@ class LoginPasswordPage extends StatelessWidget {
                                               color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(15)),
-                                          child: const Padding(
-                                            padding: EdgeInsets.only(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
                                                 left: 15.0, top: 10),
                                             child: TextField(
+                                              controller: passwordController,
                                               obscureText: true,
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                   border: InputBorder.none,
                                                   hintText: 'Password',
                                                   hintStyle: TextStyle(
@@ -115,6 +117,10 @@ class LoginPasswordPage extends StatelessWidget {
                                                   Colors.greenAccent,
                                               foregroundColor: Colors.white),
                                           onPressed: () {
+                                            authPageBloc.add(
+                                                AuthPageLoginButtonClickedEvent(
+                                                    password: passwordController
+                                                        .text));
                                             //Login event should be triggered here
                                           },
                                           child: const Center(

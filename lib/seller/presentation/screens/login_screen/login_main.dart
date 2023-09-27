@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_pick_seller/seller/presentation/screens/landing_screen/landing_screen_with_bnb.dart';
 import 'package:fresh_pick_seller/seller/presentation/screens/login_screen/login_password.dart';
 import 'package:fresh_pick_seller/seller/presentation/screens/login_screen/sign_up.dart';
 
@@ -39,6 +40,9 @@ class _LoginPageState extends State<LoginPage> {
         } else if (state is AuthPageNavigateToSignUpPageActionState) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SignUpPage()));
+        } else if (state is AuthPageLoginSuccessActionState) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LandingPage()));
         }
       },
       builder: (context, state) {

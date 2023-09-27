@@ -4,11 +4,12 @@ import '../../models/post/post.dart';
 
 class PostRepository {
   final FirebaseService _firebaseService = FirebaseService();
-  Future<List<PostDataModel>> getAllPostItems() async {
+  Future<List<PostDataModel>> getAllPostItems(String sellerId) async {
     FirebaseFirestore firebaseFirestore = _firebaseService.firebaseFirestore;
     CollectionReference postsCollection = firebaseFirestore.collection('posts');
 
-    QuerySnapshot querySnapshot = await postsCollection.get();
+    QuerySnapshot querySnapshot =
+        await postsCollection.where('sellerId', isEqualTo: sellerId).get();
 
     // Convert the query snapshot to a List of PostDataModel objects
     final posts = querySnapshot.docs

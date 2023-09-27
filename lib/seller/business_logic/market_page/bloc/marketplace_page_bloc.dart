@@ -21,7 +21,7 @@ class MarketplacePageBloc
       InitialFetchEvent event, Emitter<MarketplacePageState> emit) async {
     emit(MarketplaceLoadingState());
     PostRepository postRepository = PostRepository();
-    var list = await postRepository.getAllPostItems();
+    var list = await postRepository.getAllPostItems('12');
     emit(MarketplaceLoadingSucessState(posts: list));
   }
 

@@ -35,13 +35,12 @@ class PostTileWidgetHorizontal extends StatelessWidget {
             Container(
               height: 160,
               width: 160,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     topLeft: Radius.circular(15)),
                 image: DecorationImage(
-                  image: NetworkImage(
-                      'https://img.crocdn.co.uk/images/products2/pl/20/00/01/25/pl2000012588_card2_lg.jpg'),
+                  image: NetworkImage(post.imageUrl.toString()),
                   fit: BoxFit.cover,
                 ),
               ),

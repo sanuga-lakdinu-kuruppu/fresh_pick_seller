@@ -5,6 +5,7 @@ import 'package:fresh_pick_seller/seller/data/models/settings/user_details.dart'
 import 'package:meta/meta.dart';
 
 import '../../../../test_data/user_data.dart';
+import '../../../data/repository/auth_repository/authrepository.dart';
 
 part 'settings_page_event.dart';
 part 'settings_page_state.dart';
@@ -18,6 +19,10 @@ class SettingsPageBloc extends Bloc<SettingsPageEvent, SettingsPageState> {
         settingPageFullNamePopUpSaveButtonClickedEvent);
     on<SettingPageAnyCancelButtonClickedEvent>(
         settingPageAnyCancelButtonClickedEvent);
+    on<SettingPageLogoutButtonClickedEvent>(
+        settingPageLogoutButtonClickedEvent);
+    on<SettingPageLogoutButtonClickedConfirmedEvent>(
+        settingPageLogoutButtonClickedConfirmedEvent);
   }
 
   FutureOr<void> settingPageInitialFetchEvent(
@@ -49,5 +54,18 @@ class SettingsPageBloc extends Bloc<SettingsPageEvent, SettingsPageState> {
       SettingPageAnyCancelButtonClickedEvent event,
       Emitter<SettingsPageState> emit) {
     emit(SettingsPageNavigateToPreviousPageAtionState());
+  }
+
+  FutureOr<void> settingPageLogoutButtonClickedEvent(
+      SettingPageLogoutButtonClickedEvent event,
+      Emitter<SettingsPageState> emit) {
+    emit(SettingsPageLogoutCheckAtionState());
+  }
+
+  FutureOr<void> settingPageLogoutButtonClickedConfirmedEvent(
+      SettingPageLogoutButtonClickedConfirmedEvent event,
+      Emitter<SettingsPageState> emit) {
+    AuthRepository().signOut();
+    emit(SettingsPageLogoutSuccessAtionState());
   }
 }

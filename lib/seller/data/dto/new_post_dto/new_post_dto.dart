@@ -7,7 +7,7 @@ class NewPostDTO {
   String? postDescription;
   String? postCategory;
   String? postSubCategory;
-  double? minimumOrderQty;
+  int? minimumOrderQty;
   String? unit;
   double? minimumOrderPrice;
   File? imageFile;

@@ -19,3 +19,7 @@ class SettingPageFullNamePopUpSaveButtonClickedEvent
     extends SettingsPageEvent {}
 
 class SettingPageAnyCancelButtonClickedEvent extends SettingsPageEvent {}
+
+class SettingPageLogoutButtonClickedEvent extends SettingsPageEvent {}
+
+class SettingPageLogoutButtonClickedConfirmedEvent extends SettingsPageEvent {}
