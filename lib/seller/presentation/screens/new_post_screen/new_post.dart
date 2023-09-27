@@ -25,10 +25,13 @@ class _NewPostState extends State<NewPost> {
     super.initState();
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? selectedCategoryItem = 'Vegetables';
   String? selectedSubCategoryItem = 'Upcountry';
   String? selectedUnitItemMinimumOrder = 'kg';
   String? selectedUnitItemPrice = 'kg';
+  String? selectedProvince = 'Western';
+  String? selectedDistrict = 'Ampara';
 
   File? imageFile;
 
@@ -36,8 +39,6 @@ class _NewPostState extends State<NewPost> {
   TextEditingController minimumOrderQtyController = TextEditingController();
   TextEditingController minimumPriceController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  TextEditingController districtController = TextEditingController();
-  TextEditingController provinceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   List<DropdownMenuItem<String>> get dropDownListItemsCategory {
@@ -112,449 +113,488 @@ class _NewPostState extends State<NewPost> {
                 body: SingleChildScrollView(
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Stack(children: [
-                          Container(
-                            width: double.maxFinite,
-                            height: 220,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                image: imageFile == null
-                                    ? const DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/noimage.png'),
-                                        fit: BoxFit.cover)
-                                    : DecorationImage(
-                                        image: FileImage(imageFile!),
-                                        fit: BoxFit.cover)),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.greenAccent,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Stack(children: [
+                            Container(
+                              width: double.maxFinite,
+                              height: 220,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(15)),
+                                  image: imageFile == null
+                                      ? const DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/noimage.png'),
+                                          fit: BoxFit.cover)
+                                      : DecorationImage(
+                                          image: FileImage(imageFile!),
+                                          fit: BoxFit.cover)),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.greenAccent,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
                                       ),
-                                    ),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          getImageFile();
-                                          newPostDTO.imageFile = imageFile;
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
-                                        ))),
-                              ),
-                            ],
-                          ),
-                        ]),
-                        const SizedBox(height: 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Basic Info',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(151, 151, 151, 1),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700)),
-                            Text(
-                                DateFormat('dd MMMM yyyy')
-                                    .format(DateTime.now()),
-                                style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12))
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          padding: const EdgeInsets.all(20.0),
-                          width: 390,
-                          height: 1200,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                spreadRadius: 0,
-                                offset: Offset(0, 4),
-                                blurRadius: 2,
-                                color: Colors.grey,
-                              )
-                            ],
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
+                                      child: IconButton(
+                                          onPressed: () {
+                                            getImageFile();
+                                            newPostDTO.imageFile = imageFile;
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ))),
+                                ),
+                              ],
                             ),
-                          ),
-                          child: Column(
+                          ]),
+                          const SizedBox(height: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Row(
-                                children: [
-                                  Text('Product Name',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                maxLength: 20,
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Product Name is required!!!';
-                                  }
-                                  return null;
-                                },
-                                controller: productNameController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText: 'Egg Plant (Korean)',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Category',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 60,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1)),
-                                child: DropdownButton(
-                                  style: const TextStyle(color: Colors.grey),
-                                  underline: Container(),
-                                  isExpanded: true,
-                                  items: dropDownListItemsCategory,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedCategoryItem = value;
-                                    });
-                                    newPostDTO.postCategory = value;
-                                  },
-                                  value: selectedCategoryItem,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Sub Category',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 60,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1)),
-                                child: DropdownButton(
-                                  style: const TextStyle(color: Colors.grey),
-                                  underline: Container(),
-                                  isExpanded: true,
-                                  items: dropDownListItemsSubCategory,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedSubCategoryItem = value;
-                                    });
-                                    newPostDTO.postSubCategory = value;
-                                  },
-                                  value: selectedSubCategoryItem,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Minimum Order',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 60,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1)),
-                                child: DropdownButton(
-                                  style: const TextStyle(color: Colors.grey),
-                                  underline: Container(),
-                                  isExpanded: true,
-                                  items: dropDownListItemsUnit,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedUnitItemMinimumOrder = value;
-                                    });
-                                    newPostDTO.unit = value;
-                                  },
-                                  value: selectedUnitItemMinimumOrder,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Minimum Order is required!!!';
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.number,
-                                controller: minimumOrderQtyController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText: 'Ex: 45',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Price',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 60,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1)),
-                                child: DropdownButton(
-                                  style: const TextStyle(color: Colors.grey),
-                                  underline: Container(),
-                                  isExpanded: true,
-                                  items: dropDownListItemsUnit,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedUnitItemPrice = value;
-                                    });
-                                  },
-                                  value: selectedUnitItemPrice,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Minimum Price is required!!!';
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.number,
-                                controller: minimumPriceController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText: 'Ex: Rs. 120.00',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Pickup Location',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                controller: addressController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText:
-                                        '(Address) 165/42b, main Road, Galle.',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                controller: districtController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText: 'District',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 10),
-                              TextField(
-                                controller: provinceController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15))),
-                                    hintText: 'Province',
-                                    hintStyle: TextStyle(color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const Row(
-                                children: [
-                                  Text('Description',
-                                      style: TextStyle(color: Colors.grey)),
-                                  SizedBox(width: 5)
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 144,
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(15)),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 1)),
-                                child: TextField(
-                                  controller: descriptionController,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 5,
-                                ),
-                              ),
-                              // const SizedBox(height: 20),
-                              // Row(
-                              //   mainAxisAlignment:
-                              //       MainAxisAlignment.spaceBetween,
-                              //   children: [
-                              //     const Row(
-                              //       children: [
-                              //         Text('Related Tags',
-                              //             style: TextStyle(color: Colors.grey)),
-                              //         SizedBox(width: 5),
-                              //         Icon(Icons.error, color: Colors.red),
-                              //       ],
-                              //     ),
-                              //     IconButton(
-                              //         onPressed: () {},
-                              //         icon: const Icon(
-                              //           Icons.add,
-                              //           color: Colors.grey,
-                              //         ))
-                              //   ],
-                              // ),
-                              // const SizedBox(height: 10),
-                              // Container(
-                              //   height: 144,
-                              //   padding: const EdgeInsets.all(20),
-                              //   decoration: BoxDecoration(
-                              //       borderRadius: const BorderRadius.all(
-                              //           Radius.circular(15)),
-                              //       border: Border.all(
-                              //           color: Colors.grey, width: 1)),
-                              // ),
+                              const Text('Basic Info',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(151, 151, 151, 1),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700)),
+                              Text(
+                                  DateFormat('dd MMMM yyyy')
+                                      .format(DateTime.now()),
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12))
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(
-                                      (MediaQuery.of(context).size.width - 50) /
-                                          2,
-                                      67),
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: Colors.greenAccent,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15)))),
-                              onPressed: () {
-                                addValuesToDTOObj();
-
-                                newPostPageBloc.add(
-                                    NewPostPageCreateNewPostButtonClickedEvent(
-                                        newPostDTO: newPostDTO));
-                              },
-                              child: const Center(
-                                child: Text('Post',
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 10),
+                          Container(
+                            padding: const EdgeInsets.all(20.0),
+                            width: 390,
+                            height: 1260,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 0,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 2,
+                                  color: Colors.grey,
+                                )
+                              ],
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
                               ),
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(
-                                      (MediaQuery.of(context).size.width - 50) /
-                                          2,
-                                      67),
-                                  foregroundColor: Colors.greenAccent,
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(15)))),
-                              onPressed: () {
-                                clearData();
-                                newPostPageBloc
-                                    .add(NewPostPageCancelButtonClickedEvent());
-                              },
-                              child: const Center(
-                                child: Text('Cancel',
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold)),
-                              ),
+                            child: Column(
+                              children: [
+                                const Row(
+                                  children: [
+                                    Text('Product Name',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  maxLength: 20,
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Product Name is required!!!';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  controller: productNameController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      hintText: 'Egg Plant (Korean)',
+                                      hintStyle: TextStyle(color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Category',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsCategory,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedCategoryItem = value;
+                                      });
+                                      newPostDTO.postCategory = value;
+                                    },
+                                    value: selectedCategoryItem,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Sub Category',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsSubCategory,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedSubCategoryItem = value;
+                                      });
+                                      newPostDTO.postSubCategory = value;
+                                    },
+                                    value: selectedSubCategoryItem,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Minimum Order',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsUnit,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedUnitItemMinimumOrder = value;
+                                      });
+                                      newPostDTO.unit = value;
+                                    },
+                                    value: selectedUnitItemMinimumOrder,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Minimum Order is required!!!';
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  controller: minimumOrderQtyController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      hintText: 'Ex: 45',
+                                      hintStyle: TextStyle(color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Price',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsUnit,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedUnitItemPrice = value;
+                                      });
+                                    },
+                                    value: selectedUnitItemPrice,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Minimum Price is required!!!';
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  controller: minimumPriceController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      hintText: 'Ex: Rs. 120.00',
+                                      hintStyle: TextStyle(color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Pickup Location',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Pickup Location is required!!!';
+                                    }
+                                    return null;
+                                  },
+                                  controller: addressController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      hintText:
+                                          '(Address) 165/42b, main Road, Galle.',
+                                      hintStyle: TextStyle(color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsDistricts,
+                                    onChanged: (value) {
+                                      print(value);
+                                      setState(() {
+                                        selectedDistrict = value;
+                                      });
+                                      newPostDTO.district = value;
+                                    },
+                                    value: selectedDistrict,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 60,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.grey),
+                                    underline: Container(),
+                                    isExpanded: true,
+                                    items: dropDownListItemsProvinces,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedProvince = value;
+                                      });
+                                      newPostDTO.province = value;
+                                    },
+                                    value: selectedProvince,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                const Row(
+                                  children: [
+                                    Text('Description',
+                                        style: TextStyle(color: Colors.grey)),
+                                    SizedBox(width: 5)
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 144,
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1)),
+                                  child: TextField(
+                                    controller: descriptionController,
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 5,
+                                  ),
+                                ),
+                                // const SizedBox(height: 20),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     const Row(
+                                //       children: [
+                                //         Text('Related Tags',
+                                //             style: TextStyle(color: Colors.grey)),
+                                //         SizedBox(width: 5),
+                                //         Icon(Icons.error, color: Colors.red),
+                                //       ],
+                                //     ),
+                                //     IconButton(
+                                //         onPressed: () {},
+                                //         icon: const Icon(
+                                //           Icons.add,
+                                //           color: Colors.grey,
+                                //         ))
+                                //   ],
+                                // ),
+                                // const SizedBox(height: 10),
+                                // Container(
+                                //   height: 144,
+                                //   padding: const EdgeInsets.all(20),
+                                //   decoration: BoxDecoration(
+                                //       borderRadius: const BorderRadius.all(
+                                //           Radius.circular(15)),
+                                //       border: Border.all(
+                                //           color: Colors.grey, width: 1)),
+                                // ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(
+                                        (MediaQuery.of(context).size.width -
+                                                50) /
+                                            2,
+                                        67),
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Colors.greenAccent,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)))),
+                                onPressed: () {
+                                  if (_submitForm() == 1) {
+                                    newPostPageBloc.add(
+                                        NewPostPageCreateNewPostButtonClickedEvent(
+                                            newPostDTO: newPostDTO));
+                                  }
+                                },
+                                child: const Center(
+                                  child: Text('Post',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(
+                                        (MediaQuery.of(context).size.width -
+                                                50) /
+                                            2,
+                                        67),
+                                    foregroundColor: Colors.greenAccent,
+                                    backgroundColor: Colors.white,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)))),
+                                onPressed: () {
+                                  clearData();
+                                  newPostPageBloc.add(
+                                      NewPostPageCancelButtonClickedEvent());
+                                },
+                                child: const Center(
+                                  child: Text('Cancel',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -578,13 +618,22 @@ class _NewPostState extends State<NewPost> {
     }
   }
 
+  int _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      if (imageFile != null) addValuesToDTOObj();
+
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   void addValuesToDTOObj() {
     newPostDTO.postName = productNameController.text;
-    newPostDTO.minimumOrderQty = double.parse(minimumOrderQtyController.text);
+    newPostDTO.minimumOrderQty =
+        (double.parse(minimumOrderQtyController.text)).toInt();
     newPostDTO.minimumOrderPrice = double.parse(minimumPriceController.text);
     newPostDTO.pickupLocation = addressController.text;
-    newPostDTO.district = districtController.text;
-    newPostDTO.province = provinceController.text;
     newPostDTO.postDescription = descriptionController.text;
     newPostDTO.imageFile = imageFile;
     newPostDTO.postedDate = DateTime.now();
@@ -593,16 +642,72 @@ class _NewPostState extends State<NewPost> {
 
   void clearData() {
     productNameController.clear();
-    provinceController.clear();
-    districtController.clear();
     minimumOrderQtyController.clear();
     minimumPriceController.clear();
     descriptionController.clear();
     addressController.clear();
     selectedCategoryItem = 'Vegetables';
+    selectedProvince = 'Western';
+    selectedDistrict = 'Ampara';
     selectedSubCategoryItem = 'Upcountry';
     selectedUnitItemMinimumOrder = 'kg';
     selectedUnitItemPrice = 'kg';
     imageFile = null;
+  }
+
+  List<DropdownMenuItem<String>> get dropDownListItemsProvinces {
+    List<String> provinces = [
+      'Central',
+      'Eastern',
+      'Northern',
+      'North Central',
+      'North Western',
+      'Sabaragamuwa',
+      'Southern',
+      'Uva',
+      'Western'
+    ];
+
+    List<DropdownMenuItem<String>> provinceList = provinces.map((province) {
+      return DropdownMenuItem(value: province, child: Text(province));
+    }).toList();
+
+    return provinceList;
+  }
+
+  List<DropdownMenuItem<String>> get dropDownListItemsDistricts {
+    List<String> districts = [
+      'Ampara',
+      'Anuradhapura',
+      'Badulla',
+      'Batticaloa',
+      'Colombo',
+      'Galle',
+      'Gampaha',
+      'Hambantota',
+      'Jaffna',
+      'Kalutara',
+      'Kandy',
+      'Kegalle',
+      'Kilinochchi',
+      'Kurunegala',
+      'Mannar',
+      'Matale',
+      'Matara',
+      'Monaragala',
+      'Mullaitivu',
+      'Nuwara Eliya',
+      'Polonnaruwa',
+      'Puttalam',
+      'Ratnapura',
+      'Trincomalee',
+      'Vavuniya'
+    ];
+
+    List<DropdownMenuItem<String>> districtList = districts.map((district) {
+      return DropdownMenuItem(value: district, child: Text(district));
+    }).toList();
+
+    return districtList;
   }
 }

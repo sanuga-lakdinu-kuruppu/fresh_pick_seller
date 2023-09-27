@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_pick_seller/seller/business_logic/auth_page/bloc/auth_page_bloc.dart';
+import 'package:fresh_pick_seller/seller/business_logic/home_page/bloc/home_page_bloc.dart';
+import 'package:fresh_pick_seller/seller/business_logic/landing_page/bloc/landing_page_bloc.dart';
 import 'package:fresh_pick_seller/seller/business_logic/market_page/bloc/marketplace_page_bloc.dart';
 import 'package:fresh_pick_seller/seller/business_logic/new_post_page/bloc/new_post_page_bloc.dart';
 import 'package:fresh_pick_seller/seller/business_logic/notification_page/bloc/notification_page_bloc.dart';
@@ -25,6 +27,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => MarketplacePageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LandingPageBloc(),
         ),
         BlocProvider(
           create: (context) => SettingsPageBloc(),
@@ -52,6 +57,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => OngoingOrderInDetailBloc(),
+        ),
+        BlocProvider(
+          create: (context) => HomePageBloc(),
         ),
       ],
       child: const MyApp(),

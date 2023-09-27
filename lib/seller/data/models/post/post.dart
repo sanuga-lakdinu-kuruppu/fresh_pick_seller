@@ -6,7 +6,7 @@ class PostDataModel {
   final String? postDescription;
   final String? postCategory;
   final String? postSubCategory;
-  final double? minimumOrderQty;
+  final int? minimumOrderQty;
   final String? unit;
   final double? minimumOrderPrice;
   final String? postStatus;
@@ -38,10 +38,9 @@ class PostDataModel {
       postName: json['postName'],
       postCategory: json['postCategory'],
       postSubCategory: json['postSubCategory'],
-      minimumOrderQty: (json['minimumOrderQty'] as int).toDouble(),
+      minimumOrderQty: json['minimumOrderQty'] as int,
       unit: json['unit'],
       minimumOrderPrice: json['minimumOrderPrice'],
-      // minimumOrderPricePer: json['minimumOrderPricePer'],
       postStatus: json['postStatus'],
       postDescription: json['postDescription'],
       pickupLocation: json['pickupLocation'],

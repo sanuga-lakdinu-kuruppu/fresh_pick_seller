@@ -18,7 +18,7 @@ class OrderDataModel {
   final String? sellerEmailAddress;
   final String? buyerMessage;
   final String? deliveryAddress;
-  final double? itemQuantity;
+  final int? itemQuantity;
   final double? totalAmount;
   final String? review;
   final double? rating;
@@ -30,8 +30,8 @@ class OrderDataModel {
   final String? deliveryStatus;
   final int? riderMobile;
   final String? riderName;
-  final double? totalDistance;
-  final double? totalWeight;
+  // final double? totalDistance;
+  // final double? totalWeight;
   final String? vehicleNumber;
 
   OrderDataModel(
@@ -43,8 +43,8 @@ class OrderDataModel {
       this.deliveryStatus,
       this.riderMobile,
       this.riderName,
-      this.totalDistance,
-      this.totalWeight,
+      // this.totalDistance,
+      // this.totalWeight,
       this.vehicleNumber,
       this.sellerName,
       this.sellerDistrict,
@@ -89,13 +89,13 @@ class OrderDataModel {
       sellerEmailAddress: json['sellerEmailAddress'] as String?,
       buyerMessage: json['buyerMessage'] as String?,
       deliveryAddress: json['deliveryAddress'] as String?,
-      itemQuantity: (json['itemQuantity'] as int).toDouble(),
-      rating: (json['rating'] as int).toDouble(),
-      itemPricePerUnit: (json['itemPricePerUnit'] as int).toDouble(),
-      deliveryFee: (json['deliveryFee'] as int).toDouble(),
-      totalDistance: (json['totalDistance'] as int).toDouble(),
-      totalWeight: (json['totalWeight'] as int).toDouble(),
-      totalAmount: (json['totalAmount'] as int).toDouble(),
+      itemQuantity: json['itemQuantity'] as int,
+      rating: json['rating'].toDouble(),
+      itemPricePerUnit: json['itemPricePerUnit'].toDouble(),
+      deliveryFee: json['deliveryFee'].toDouble(),
+      // totalDistance: (json['totalDistance'] as int).toDouble(),
+      // totalWeight: (json['totalWeight'] as int).toDouble(),
+      totalAmount: json['totalAmount'].toDouble(),
       cancelledReason: json['cancelledReason'] as String?,
       deliveryMethod: json['deliveryMethod'] as String?,
       vehicleNumber: json['vehicleNumber'] as String?,
@@ -133,8 +133,8 @@ class OrderDataModel {
       'deliveryStatus': deliveryStatus,
       'riderMobile': riderMobile,
       'riderName': riderName,
-      'totalDistance': totalDistance,
-      'totalWeight': totalWeight,
+      // 'totalDistance': totalDistance,
+      // 'totalWeight': totalWeight,
       'vehicleNumber': vehicleNumber,
       'itemPricePerUnit': itemPricePerUnit,
       'review': review,

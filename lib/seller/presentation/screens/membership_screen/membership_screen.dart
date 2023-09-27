@@ -63,7 +63,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                         width: 20,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.7009,
+                        width: MediaQuery.of(context).size.width * 0.6609,
                         child: const Text(
                           'Account will be expired on 18 June 2023. You can renew the membership of this platform using below New Deposit Option.',
                           style: TextStyle(fontSize: 12, color: Colors.grey),

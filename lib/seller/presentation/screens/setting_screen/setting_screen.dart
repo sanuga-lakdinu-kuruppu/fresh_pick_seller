@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_pick_seller/seller/business_logic/settings_page/bloc/settings_page_bloc.dart';
+import 'package:fresh_pick_seller/seller/presentation/screens/login_screen/login_main.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/setting_page_payment_cards/billing_payment_tile.dart';
 import 'package:fresh_pick_seller/seller/presentation/widgets/setting_page_payment_cards/membership_tile.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -88,6 +89,11 @@ class _SettingScreenState extends State<SettingScreen> {
         } else if (state is SettingsPageFullNameEditedAtionState) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Full Name is saved successfully')));
+        } else if (state is SettingsPageLogoutCheckAtionState) {
+          _showConfirmationDialog(context);
+        } else if (state is SettingsPageLogoutSuccessAtionState) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
         }
       },
       builder: (context, state) {
@@ -103,23 +109,8 @@ class _SettingScreenState extends State<SettingScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            minimumSize: const Size(double.maxFinite, 67),
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.greenAccent),
-                        onPressed: () {},
-                        child: const Center(
-                          child: Text('Switching to buying',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                        ),
-                      ),
                       const SizedBox(
-                        height: 15,
+                        height: 5,
                       ),
                       Container(
                         padding: const EdgeInsets.all(16.0),
@@ -127,7 +118,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         height: 150,
                         decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                             boxShadow: [
                               BoxShadow(
                                 spreadRadius: 0,
@@ -559,7 +550,10 @@ class _SettingScreenState extends State<SettingScreen> {
                             minimumSize: const Size(double.maxFinite, 67),
                             backgroundColor: Colors.greenAccent,
                             foregroundColor: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          settingPageBloc
+                              .add(SettingPageLogoutButtonClickedEvent());
+                        },
                         child: const Center(
                           child: Text('Logout',
                               style: TextStyle(
@@ -575,6 +569,36 @@ class _SettingScreenState extends State<SettingScreen> {
           default:
             return const SizedBox();
         }
+      },
+    );
+  }
+
+  Future<void> _showConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible:
+          false, // Prevent dialog from being dismissed by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmation'),
+          content:
+              const Text('Are you sure you want to Logout from the System?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: const Text('Confirm'),
+              onPressed: () {
+                settingPageBloc
+                    .add(SettingPageLogoutButtonClickedConfirmedEvent());
+              },
+            ),
+          ],
+        );
       },
     );
   }

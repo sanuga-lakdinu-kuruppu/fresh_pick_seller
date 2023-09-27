@@ -24,3 +24,7 @@ class SettingsPageNavigateToPreviousPageAtionState
     extends SettingsPageActionState {}
 
 class SettingsPageFullNameEditedAtionState extends SettingsPageActionState {}
+
+class SettingsPageLogoutSuccessAtionState extends SettingsPageActionState {}
+
+class SettingsPageLogoutCheckAtionState extends SettingsPageActionState {}

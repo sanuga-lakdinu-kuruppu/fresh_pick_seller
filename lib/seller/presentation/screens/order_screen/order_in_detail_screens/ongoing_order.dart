@@ -332,19 +332,19 @@ class OngoingOrderInDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: const EdgeInsets.only(bottom: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   'Total Weight',
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
                                 Text(
-                                  '${orderDataModel.totalWeight.toString()} kg',
-                                  style: const TextStyle(
+                                  'Not Calculated',
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -352,19 +352,19 @@ class OngoingOrderInDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 15.0),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   'Total Distance',
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
                                 Text(
-                                  '${orderDataModel.totalDistance.toString()} km',
-                                  style: const TextStyle(
+                                  'Not Calculated',
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -455,7 +455,7 @@ class OngoingOrderInDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     const Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -604,19 +604,19 @@ class OngoingOrderInDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 15.0),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   'Total Weight',
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
                                 Text(
-                                  '${orderDataModel.totalWeight.toString()} kg',
-                                  style: const TextStyle(
+                                  '--',
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -624,19 +624,19 @@ class OngoingOrderInDetailPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 15.0),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   'Total Distance',
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 14),
                                 ),
                                 Text(
-                                  '${orderDataModel.totalDistance.toString()} km',
-                                  style: const TextStyle(
+                                  ' --',
+                                  style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),

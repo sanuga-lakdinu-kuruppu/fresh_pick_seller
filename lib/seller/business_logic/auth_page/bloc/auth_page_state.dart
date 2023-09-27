@@ -16,3 +16,7 @@ class AuthPageNavigateToLoginPageActionState extends AuthPageActionState {}
 class AuthPageNavigateToPreviousPageActionState extends AuthPageActionState {}
 
 class AuthPageNavigateToSignUpPageActionState extends AuthPageActionState {}
+
+class AuthPageLoginSuccessActionState extends AuthPageActionState {}
+
+class AuthPageLoginErrorActionState extends AuthPageActionState {}
